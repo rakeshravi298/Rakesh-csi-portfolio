@@ -1,0 +1,64 @@
+START-HADOOP:
+
+cd C:\hadoop-2.8.0\sbin
+start-dfs.cmd
+start-yarn.cmd
+jps (To verify if all processes are running; Namenode, Datanode, Resource
+Manager, Node Manager)	
+
+
+ASSIGNMENT-2 WORDCOUNT : 
+
+hadoop fs -mkdir -p /wordcount
+hadoop fs -copyFromLocal C:\Users\Rakesh-Pc\Downloads\wordcount-hadoop\dataset.txt /wordcount
+hdfs dfs -ls /wordcount
+
+hadoop jar C:\hadoop-2.8.0\share\hadoop\tools\lib\hadoop-streaming-2.8.0.jar -input /wordcount/dataset.txt -output /wordcount/output -file "C:\Users\Rakesh-Pc\Downloads\wordcount-hadoop/mapper.py" -mapper "python mapper.py" -file "C:\Users\Rakesh-Pc\Downloads\wordcount-hadoop/reducer.py" -reducer "python reducer.py" -numReduceTasks=3
+
+hdfs dfs -text /wordcount/output/* > C:\Users\Rakesh-Pc\Downloads\wordcount-hadoop/outputfile.txt
+
+hadoop fs -rm -r /wordcount/output
+
+
+ASSIGNMENT-3 WEATHER DATA ANALYSIS : 
+
+hadoop fs -mkdir -p /weatherdata
+hadoop fs -copyFromLocal C:\Users\Rakesh-Pc\Downloads\weatherdata-hadoop\dataset.txt /weatherdata
+hdfs dfs -ls /weatherdata
+
+
+hadoop jar C:\hadoop-2.8.0\share\hadoop\tools\lib\hadoop-streaming-2.8.0.jar -input /weatherdata/dataset.txt -output /weatherdata/output -file "C:\Users\Rakesh-Pc\Downloads\weatherdata-hadoop\mapper.py" -mapper "python mapper.py" -file "C:\Users\Rakesh-Pc\Downloads\weatherdata-hadoop\reducer.py" -reducer "python reducer.py"
+
+
+hdfs dfs -text /weatherdata/output/* > C:\Users\Rakesh-Pc\Downloads\weatherdata-hadoop\outputfile.txt
+
+hadoop fs -rm -r /weatherdata/output
+
+
+ASSIGNMENt-4 K-Means Cluster
+
+hadoop fs -mkdir -p /kmeans8
+hadoop fs -copyFromLocal C:\Users\Rakesh-Pc\Downloads\kmeans2-hadoop\dataset.txt /kmeans8/dataset.txt
+hadoop fs -copyFromLocal C:\Users\Rakesh-Pc\Downloads\kmeans2-hadoop\initial_centroids.txt /kmeans5/centroids.txt
+hdfs dfs -ls /kmeans8
+
+hadoop jar C:\hadoop-2.8.0\share\hadoop\tools\lib\hadoop-streaming-2.8.0.jar -input /kmeans8/dataset.txt -output /kmeans8/output -file "C:\Users\Rakesh-Pc\Downloads\kmeans2-hadoop/mapper.py" -mapper "python mapper.py" -file "C:\Users\Rakesh-Pc\Downloads\kmeans2-hadoop/reducer.py" -reducer "python reducer.py" -numReduceTasks=3
+
+hdfs dfs -text /kmeans8/output/* > C:\Users\Rakesh-Pc\Downloads\kmeans2-hadoop/outputfile.txt
+
+hadoop fs -rm -r /kmeans8/output
+
+ASSIGNMENT-5 Page Rank
+
+hadoop fs -mkdir -p /pagerank
+hadoop fs -copyFromLocal C:\Users\rakes\Downloads\pagerank-hadoop\dataset.txt /pagerank
+hdfs dfs -ls /pagerank
+
+hadoop jar C:\hadoop-2.8.0\share\hadoop\tools\lib\hadoop-streaming-2.8.0.jar -input /pagerank/dataset.txt -output /pagerank/output -file "C:\Users\rakes\Downloads\pagerank-hadoop\mapper.py" -mapper "python mapper.py" -file "C:\Users\rakes\Downloads\pagerank-hadoop\reducer.py" -reducer "python reducer.py"
+
+
+hdfs dfs -text /pagerank/output/* > C:\Users\rakes\Downloads\pagerank-hadoop/outputfile.txt
+
+hadoop fs -rm -r /pagerank/output
+
+
